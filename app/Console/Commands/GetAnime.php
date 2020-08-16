@@ -71,6 +71,10 @@ class GetAnime extends Command
                     // APIデータが配列の時
                     if( isset( $getDatas ) == True && is_array( $getDatas ) == True ){
                         foreach ($getDatas as $key => $value) {
+                            // 年のセット
+                            $value['year'] = $year;
+                            // コースIDのセット
+                            $value['cours_id'] = $cour;
                             // 対象カラムの除外
                             foreach( $exclusionList as $exclusion ){
                                 unset( $value[$exclusion] );

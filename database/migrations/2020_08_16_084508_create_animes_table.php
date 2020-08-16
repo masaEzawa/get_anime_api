@@ -14,15 +14,16 @@ class CreateAnimesTable extends Migration
     public function up()
     {
         Schema::create('animes', function (Blueprint $table) {
-            $table->bigInteger('id')->unique();
-            $table->string('title');
-            $table->string('title_short1');
-            $table->string('title_short2')->nullable();
-            $table->string('title_short3')->nullable();
-            $table->string('public_url');
-            $table->string('twitter_account')->nullable();
-            $table->string('twitter_hash_tag')->nullable();
-            $table->tinyInteger('cours_id');
+            $table->bigInteger('id')->unique(); // ID
+            $table->string('title'); // タイトル
+            $table->string('title_short1'); // タイトル略称1
+            $table->string('title_short2')->nullable(); // タイトル略称2
+            $table->string('title_short3')->nullable(); // タイトル略称3
+            $table->string('public_url'); // 公式サイトURL
+            $table->string('twitter_account')->nullable(); // twitterアカウントID
+            $table->string('twitter_hash_tag')->nullable(); // twitterハッシュタグ
+            $table->string('year'); // 年
+            $table->tinyInteger('cours_id'); // クールID
             $table->timestamps();
             $table->softDeletes();
         });

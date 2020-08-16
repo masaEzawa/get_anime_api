@@ -17,14 +17,15 @@ class Animes extends Model
     protected $table = 'animes';
 
     protected $fillable = [
-        'id',
-        'title',
-        'title_short1',
-        'title_short2',
-        'title_short3',
-        'public_url',
-        'twitter_account',
-        'twitter_hash_tag',
-        'cours_id'
+        'id', // ID
+        'title', // タイトル
+        'title_short1', // タイトル略称1
+        'title_short2', // タイトル略称2
+        'title_short3', // タイトル略称3
+        'public_url', // 公式サイトURL
+        'twitter_account', // twitterアカウントID
+        'twitter_hash_tag', // twitterハッシュタグ
+        'year', // 年
+        'cours_id' // クールID
     ];
 }
