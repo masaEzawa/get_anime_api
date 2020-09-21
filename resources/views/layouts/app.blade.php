@@ -19,12 +19,15 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    {{-- JSの定義 --}}
+    @section('js')
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @show
 </head>
-<body>
+<body style="background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');">
     <div id="app">
         {{-- ヘッダーの読み出し --}}
         @include( 'layouts.header' )

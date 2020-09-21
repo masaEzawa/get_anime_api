@@ -3,16 +3,22 @@
 @import url('https://fonts.googleapis.com/css?family=Numans');
 
 html,body{
-background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
 font-family: 'Numans', sans-serif;
+background-repeat: repeat-y;
 }
 
 .container{
 height: 100%;
 align-content: center;
+}
+
+.card{
+  margin-top: auto;
+  margin-bottom: auto;
+  background-color: rgba(0,0,0,0.5) !important;
 }
 
 /* ナビゲーション */
@@ -21,15 +27,10 @@ align-content: center;
 }
 
 /* ログイン */
-
-.card{
-height: 370px;
-margin-top: auto;
-margin-bottom: auto;
-width: 400px;
-background-color: rgba(0,0,0,0.5) !important;
+.card-login {
+  height: 370px;
+  width: 400px;
 }
-
 .social_icon span{
 font-size: 60px;
 margin-left: 10px;
@@ -93,4 +94,11 @@ color: white;
 
 .links a{
 margin-left: 4px;
+}
+
+/* ホーム画面 */
+.list-content{
+  margin: 1px;
+  padding: .375rem .75rem;
+  border-radius: .25rem;
 }

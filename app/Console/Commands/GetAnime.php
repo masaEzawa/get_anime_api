@@ -62,7 +62,7 @@ class GetAnime extends Command
                 // APIのURLを生成
                 $apiUrl = $url . $year . "/" . $cour;
                 // APUを実行し、JSONデータを取得
-                $getJsonData = file_get_contents( $apiUrl );
+                $getJsonData = $this->http_get_contents( $apiUrl );
                 // APIのデータがあるとき
                 if( isset( $getJsonData ) == True ){
                     // JSONデータを配列に格納
@@ -107,19 +107,19 @@ class GetAnime extends Command
 
     public function http_get_contents( $url )
     {
-        $ch = curl_init();
+        $ch = \curl_init();
 		// オプション
-		curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+		\curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
+		\curl_setopt($ch, CURLOPT_URL, $url);
+		\curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
 		if (isset($_SERVER['HTTP_REFERER'])) {
-		curl_setopt($ch, CURLOPT_REFERER, $_SERVER['HTTP_REFERER']);
+		\curl_setopt($ch, CURLOPT_REFERER, $_SERVER['HTTP_REFERER']);
 		}
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($ch, CURLOPT_COOKIESESSION, TRUE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		\curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+		\curl_setopt($ch, CURLOPT_COOKIESESSION, TRUE);
+		\curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		\curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+		\curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 		// クッキーヘッダー
 		$cookie_header = "Cookie:";
@@ -128,17 +128,17 @@ class GetAnime extends Command
 			$cookie_header .= " {$key}={$value};";
 		}
 		$headers[] = $cookie_header;
-		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+		\curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 		// 実行
-		$retval = curl_exec($ch);
+		$retval = \curl_exec($ch);
 		//var_dump($retval);
 
-		if (curl_errno($ch)) {
-			return 'Request Error: ' . curl_error($ch);
+		if (\curl_errno($ch)) {
+			return 'Request Error: ' . \curl_error($ch);
 		}
 
-		curl_close($ch);
+		\curl_close($ch);
 
 		if (FALSE === $retval) {
 			return FALSE;

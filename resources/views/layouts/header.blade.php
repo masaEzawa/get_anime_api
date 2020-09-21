@@ -10,7 +10,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">アニメ検索</a>
+                </li>
 
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('mylist') ? 'active' : '' }}" href="{{ url('mylist') }}">お気に入り一覧</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -35,7 +41,7 @@
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                ログアウト
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

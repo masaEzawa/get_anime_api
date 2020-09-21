@@ -5,31 +5,6 @@
 @parent
 	<script>
         function modal_open( id, title, url ){
-            $.ajax({
-                type: "GET",
-                url: "{{ url( 'mylist/mylistData/' ) }}/" + id,
-                dataType: 'json',
-				// お気に入りに登録されている場合データを取得する
-				success: function( data ) {
-					// お気に入り登録済みの時
-                    if( !$.isEmptyObject(data) ){
-                        // モーダルの質問文を変更
-                        $('#modal-question').html( 'お気に入りに登録済みです。' );
-                        $('#no-add').show();
-                        $('#add-btn').hide();
-                    }else{
-                        // モーダルの質問文を変更
-                        $('#modal-question').html( 'お気に入りに追加しますか？' );
-                        $('#no-add').hide();
-                        $('#add-btn').show();
-                    }
-                },
-				error: function( data ) {
-
-					// console.log(data.errors);
-					alert('error');
-				}
-            })
             //
             $('input[name="anime_id"]').val(id);
             //
@@ -52,15 +27,15 @@
 
 @section('content')
 
-{{-- マイリスト登録用モーダルウィンドウの呼び出し --}}
-@include('modal.mylist_add')
+{{-- マイリスト解除用モーダルウィンドウの呼び出し --}}
+@include('modal.mylist_cancel')
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>最新アニメ一覧</h3>
+                    <h3>お気に入り一覧</h3>
                 </div>
 
                 <div class="card-body">

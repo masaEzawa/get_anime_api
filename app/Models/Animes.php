@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * アニメデータ用テーブルのモデルクラス
+ */
 class Animes extends Model
 {
     use SoftDeletes;
 
-    /**
-     * モデルと関連しているテーブル
-     *
-     * @var string
-     */
+    // テーブル名
     protected $table = 'animes';
 
+    // 更新を行うカラムの配列
     protected $fillable = [
         'id', // ID
         'title', // タイトル
