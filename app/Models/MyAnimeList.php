@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\AbstractModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 /**
  * アニメお気に入り用テーブルのモデルクラス
  */
-class MyAnimeList extends Model
+class MyAnimeList extends AbstractModel
 {
     use SoftDeletes;
 

@@ -96,6 +96,10 @@ color: white;
 margin-left: 4px;
 }
 
+.color-white{
+  color: white;
+}
+
 /* ホーム画面 */
 .list-content{
   margin: 1px;

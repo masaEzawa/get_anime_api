@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\AbstractModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * アニメデータ用テーブルのモデルクラス
  */
-class Animes extends Model
+class Animes extends AbstractModel
 {
     use SoftDeletes;
 
@@ -28,4 +28,13 @@ class Animes extends Model
         'year', // 年
         'cours_id' // クールID
     ];
+
+    /**
+     * 検索条件のスコープ
+     */
+    public function scopeWhereRequest( $query, $request ){
+        return $query->whereMatch( 'year', $request->year ) // 年
+                    ->whereMatch( 'cours_id', $request->cours_id ) // クールID
+                    ->whereLike( 'title', $request->title ); // タイトル
+    }
 }

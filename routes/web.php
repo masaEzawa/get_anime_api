@@ -21,8 +21,10 @@ Route::get('/', function () {
 Auth::routes();
 // ホーム画面のルート
 Route::get('/home', 'HomeController@index')->name('home');
+// アニメ検索用
+Route::get( 'search', 'Anime\SearchController@index' ); // 一覧表示用
 // お気に入り用のルート
-Route::get('mylist', 'Anime\MylistController@index');
-Route::get('mylist/create', 'Anime\MylistController@getCreate');
-Route::get('mylist/cancel', 'Anime\MylistController@getCancel');
-Route::get('mylist/mylistData/{id}', 'Anime\MylistController@getMylistData');
+Route::get('mylist', 'Anime\MylistController@index'); // 一覧表示用
+Route::get('mylist/create', 'Anime\MylistController@getCreate'); // お気に入り登録用
+Route::get('mylist/cancel', 'Anime\MylistController@getCancel');  // お気に入りキャンセル用
+Route::get('mylist/mylistData/{id}', 'Anime\MylistController@getMylistData'); // 詳細表示用

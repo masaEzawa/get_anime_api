@@ -44,7 +44,7 @@ class GetAnime extends Command
         $yearList = [];
         // 2014年から現在年まで取得
         for( $year=2014; $year<=date('Y'); $year++ ){
-            $yearList[] = $year;
+            $yearList[$year] = $year;
         }
         // クールのリスト
         $courList = [1, 2, 3, 4];
