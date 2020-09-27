@@ -62,11 +62,11 @@
                 <div class="card-header">
                     <h3>最新一覧</h3>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 search-box">
                         {{ Form::model( $search, ['method' => 'GET', 'url' => url('search')] ) }}
                             <table class="table">
                                 <tr>
-                                    <th class="color-white">年</th>
+                                    <th class="color-white list_th">年</th>
                                     <td>
                                         <?php
                                         // 年の配列
@@ -79,7 +79,7 @@
                                         {{ Form::select( 'year', $yearList, null, ['class' => 'form-control'] ) }}
                                     </td>
 
-                                    <th class="color-white">クール</th>
+                                    <th class="color-white list_th">クール</th>
                                     <td>
                                         <?php
                                         // クールのリスト
@@ -94,9 +94,9 @@
                                         {{ Form::select( 'cours_id', $courList, null, ['class' => 'form-control'] ) }}
                                     </td>
 
-                                    <th class="color-white">タイトル</th>
+                                    <th class="color-white list_th">タイトル</th>
                                     <td>
-                                        <input type="text" name="title" class="form-control">
+                                        {{ Form::text( 'title', null, ['class' => "form-control"] ) }}
                                     </td>
                                 </tr>
                             </table>

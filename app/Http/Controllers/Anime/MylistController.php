@@ -27,13 +27,20 @@ class MylistController extends Controller
      * ホーム画面を表示する
      */
     public function index(){
+        $columns = [
+            "my_anime_list.id",
+            "anime_id",
+            "title",
+            "public_url"
+        ];
         // お気に入りデータの取得
         $showData = MyAnimeList::joinAnimes()
                             ->where( 'user_id', Auth::id() )
+                            ->select( $columns )
                             ->get();
 
         return view(
-            'mylist',
+            'mylist.list',
             compact(
                 'showData'
             )
@@ -69,6 +76,13 @@ class MylistController extends Controller
         $myAnimeList->delete();
 
         return redirect('mylist');
+    }
+
+    /**
+     * お気に入りを編集する
+     */
+    public function getEdit( $id ){
+        return view('mylist.edit');
     }
 
     /**

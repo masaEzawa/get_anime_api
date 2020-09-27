@@ -106,3 +106,32 @@ margin-left: 4px;
   padding: .375rem .75rem;
   border-radius: .25rem;
 }
+
+/* 検索画面 */
+.search-box{
+  background-color: #000033;
+  padding: 5px;
+}
+
+.table > thead > tr > .list_th,
+.table > tbody > tr > .list_th{
+  text-align: center;
+  vertical-align: middle;
+  padding: 1px;
+}
+
+/* 入力画面 */
+.input-box{
+  background-color: #000033;
+}
+
+.input-box-th{
+  background-color: #005500;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.required{
+  color: #c91d4b;
+}
