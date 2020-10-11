@@ -4,10 +4,10 @@
 @section('js')
 @parent
 	<script>
-        function modal_open( id, title, url ){
+        function modal_open( array ){
             $.ajax({
                 type: "GET",
-                url: "{{ url( 'mylist/mylistData/' ) }}/" + id,
+                url: "{{ url( 'mylist/mylistData/' ) }}/" + array.id,
                 dataType: 'json',
 				// お気に入りに登録されている場合データを取得する
 				success: function( data ) {
@@ -31,12 +31,18 @@
 				}
             })
             // IDの表示
-            $('input[name="anime_id"]').val(id);
+            $('input[name="anime_id"]').val(array.id);
             // タイトルの表示
-            $('#anime-title').html( title );
+            $('input[name="title"]').val(array.title);
+            $('#anime-title').html( array.title );
             // URLの表示
-            $('#anime-url').html( url );
-            $('#anime-url').attr('href', url);
+            $('input[name="public_url"]').val(array.url);
+            $('#anime-url').html( array.url );
+            $('#anime-url').attr('href', array.url);
+            // 年の表示
+            $('input[name="year"]').val(array.year);
+            // クールIDの表示
+            $('input[name="cours_id"]').val(array.cours_id);
             // モーダルの表示
             $('#modal1').modal('show');
         }
@@ -121,7 +127,7 @@
                         <ul class="list-inline">
                             @forelse($showData as $key => $value)
                                 <li class="list-inline-item list-content bg-white">
-                                    <a href="javascript:void(0);" onclick="modal_open( '{{ $value['id'] }}', '{{ $value['title'] }}', '{{ $value['public_url'] }}' );">
+                                    <a href="javascript:void(0);" onclick="modal_open( {id:'{{ $value['id'] }}', title:'{{ $value['title'] }}', url:'{{ $value['public_url'] }}', year:'{{ $value['year'] }}', cours_id:'{{ $value['cours_id'] }}' });">
                                         {{ $value['title'] }}
                                     </a>
                                 </li>

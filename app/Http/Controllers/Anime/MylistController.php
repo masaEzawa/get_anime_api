@@ -30,8 +30,8 @@ class MylistController extends Controller
         $columns = [
             "my_anime_list.id",
             "anime_id",
-            "title",
-            "public_url"
+            "my_anime_list.title",
+            "my_anime_list.public_url"
         ];
         // お気に入りデータの取得
         $showData = MyAnimeList::joinAnimes()
@@ -57,6 +57,10 @@ class MylistController extends Controller
         $setData['user_id'] = Auth::id();
         // リクエストを取得する
         $setData['anime_id'] = $req->anime_id;
+        $setData['title'] = $req->title;
+        $setData['public_url'] = $req->public_url;
+        $setData['year'] = $req->year;
+        $setData['cours_id'] = $req->cours_id;
         // DBに登録する
         MyAnimeList::create( $setData );
 
@@ -82,7 +86,15 @@ class MylistController extends Controller
      * お気に入りを編集する
      */
     public function getEdit( $id ){
-        return view('mylist.edit');
+        // お気に入りデータの取得
+        $showData = MyAnimeList::findOrFail( $id );
+
+        return view(
+            'mylist.edit',
+            compact(
+                'showData'
+            )
+        );
     }
 
     /**

@@ -17,27 +17,138 @@
                         {{-- エラーメッセージ --}}
                         @include('errors.list')
 
-                        <form action="">
+                        {{ Form::model( $showData, ['method' => 'GET', 'url' => url('search')] ) }}
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <table class="table table-bordered tbl-txt-center tbl-input-line">
                                         <tbody>
 
-                                            {{-- イベント名 --}}
+                                            {{-- 年 --}}
                                             <tr>
-                                                <th class="input-box-th">イベント名 <span class="required">※</span></th>
+                                                <th class="input-box-th">年 <span class="required">※</span></th>
                                                 <td>
-                                                    {!! Form::text( 'name', null, ['class' => 'form-control'] ) !!}
+                                                    <?php
+                                                    // デフォルトの年を設定
+                                                    if( empty( $year ) ){
+                                                        $year = date('Y');
+                                                    }
+                                                    // 年の配列
+                                                    $yearList = ["" => "----"];
+                                                    // 2014年から現在年まで取得
+                                                    for( $year=date('Y' , strtotime('+1 year') ); $year>=2014; $year-- ){
+                                                        $yearList[$year] = $year;
+                                                    }
+                                                    ?>
+                                                    {{ Form::select( 'year', $yearList, null, ['class' => 'form-control'] ) }}                    
                                                 </td>
                                             </tr>
 
-
-                                            {{-- 備考 --}}
+                                            {{-- クール --}}
                                             <tr>
-                                                <th class="input-box-th">備考</th>
+                                                <th class="input-box-th">クール <span class="required">※</span></th>
+                                                <td>
+                                                    <?php
+                                                    // クールのリスト
+                                                    $courList = [
+                                                        "" => "----",
+                                                        '1' => "冬",
+                                                        '2' => "春",
+                                                        '3' => "夏",
+                                                        '4' => "秋",
+                                                    ];
+                                                    ?>
+                                                    {{ Form::select( 'cours_id', $courList, null, ['class' => 'form-control'] ) }}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 番組名 --}}
+                                            <tr>
+                                                <th class="input-box-th">番組名 <span class="required">※</span></th>
+                                                <td>
+                                                    {!! Form::text( 'title', null, ['class' => 'form-control'] ) !!}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 放送チャンネル --}}
+                                            <tr>
+                                                <th class="input-box-th">放送チャンネル <span class="required">※</span></th>
+                                                <td>
+                                                    <?php
+                                                    // 放送チャンネルのリスト
+                                                    $channelList = [
+                                                        "" => "----",
+                                                        '9' => "9: TOKYO MX",
+                                                        '3' => "3: チバテレビ",
+                                                        '4' => "4: 日本テレビ",
+                                                        '5' => "5: テレビ朝日",
+                                                        '6' => "6: TBS",
+                                                        '7' => "7: テレビ東京",
+                                                        '8' => "8: フジテレビ",
+                                                    ];
+                                                    ?>
+                                                    {{ Form::select( 'channel', $channelList, null, ['class' => 'form-control'] ) }}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 放送曜日 --}}
+                                            <tr>
+                                                <th class="input-box-th">放送曜日 <span class="required">※</span></th>
+                                                <td>
+                                                    <?php
+                                                    // 放送曜日のリスト
+                                                    $weekList = [
+                                                        "" => "----",
+                                                        "0" => '日', // 0
+                                                        "1" => '月', // 1
+                                                        "2" => '火', // 2
+                                                        "3" => '水', // 3
+                                                        "4" => '木', // 4
+                                                        "5" => '金', // 5
+                                                        "6" => '土'  // 6
+                                                    ];
+                                                    ?>
+                                                    {{ Form::select( 'onair_weekday_num', $weekList, null, ['class' => 'form-control'] ) }}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 放送時間 --}}
+                                            <tr>
+                                                <th class="input-box-th">放送時間 <span class="required">※</span></th>
+                                                <td>
+                                                    {!! Form::text( 'onair_time', null, ['class' => 'form-control', 'placeholder' => '00:00'] ) !!}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 放送開始日 --}}
+                                            <tr>
+                                                <th class="input-box-th">放送開始日 <span class="required">※</span></th>
+                                                <td>
+                                                    {!! Form::text( 'onair_start_date', null, ['class' => 'form-control', 'placeholder' => '2020-10-10'] ) !!}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 評価 --}}
+                                            <tr>
+                                                <th class="input-box-th">評価</th>
+                                                <td>
+                                                   5段階評価
+                                                </td>
+                                            </tr>
+
+                                            {{-- コメント --}}
+                                            <tr>
+                                                <th class="input-box-th">コメント</th>
                                                 <td>
                                                     {!! Form::textarea( 'memo', null, ['class' => 'form-control'] ) !!}
+                                                </td>
+                                            </tr>
+
+                                            {{-- 公式サイトURL --}}
+                                            <tr>
+                                                <th class="input-box-th">公式サイトURL</th>
+                                                <td>
+                                                    {!! Form::text( 'public_url', null, ['class' => 'form-control'] ) !!}
                                                 </td>
                                             </tr>
 
@@ -65,7 +176,7 @@
                                 </div>
                             </div>
                         
-                        </form>
+                        {{ Form::close() }}
                     </div>
                     
                 </div>

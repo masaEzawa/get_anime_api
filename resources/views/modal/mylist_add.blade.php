@@ -11,6 +11,10 @@
       <div class="modal-body">
         <form id="myform" action="{{ url('mylist/create') }}" method="get">
             <input type="hidden" name="anime_id">
+            <input type="hidden" name="title">
+            <input type="hidden" name="public_url">
+            <input type="hidden" name="year">
+            <input type="hidden" name="cours_id">
         </form>
         公式サイトURL：
         <a id="anime-url" target="_blank"></a>
