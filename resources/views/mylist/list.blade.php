@@ -85,11 +85,26 @@
                     @if( !empty( $showData ) )
                         <ul class="list-inline">
                             @forelse($showData as $key => $value)
+                                
                                 <li class="list-inline-item list-content bg-white">
+                                    {{-- 詳細リンク --}}
                                     <a href="javascript:void(0);" onclick="modal_open( '{{ $value['id'] }}', '{{ $value['anime_id'] }}' );">
+                                        {{-- タイトル --}}
                                         {{ $value['title'] }}
+                                        
+                                        {{-- 放送チャンネル --}}
+                                        @if( !empty( $value['channel'] ) )
+                                            <br>
+                                            {{ \AnimeConst::getChannel( $value['channel'] ) }}
+                                        @endif
+                                        {{-- 放送曜日 時間 --}}
+                                        @if( !empty( $value['onair_weekday_num'] ) && !empty( $value['onair_time'] ) )
+                                            <br>
+                                            {{ \AnimeConst::getWeek( $value['onair_weekday_num'] ) }} {{ $value['onair_time'] }}
+                                        @endif
                                     </a>
                                 </li>
+                                
                             @endforeach
                         </ul>
                     @else

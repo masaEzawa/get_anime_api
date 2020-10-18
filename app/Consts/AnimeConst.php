@@ -48,6 +48,34 @@ class AnimeConst {
         }
         return $yearList;
     }
+
+    /**
+     * 放送チャンネルを取得する関数
+     */
+    public static function getChannel( $num=0 ){
+        // 一覧を取得
+        $targetList = self::CHANNEL_LIST;
+
+        if( isset( $targetList[$num] ) == True ){
+            return $targetList[$num];
+        }
+
+        return $num;
+    }
+
+    /**
+     * 放送曜日を取得する関数
+     */
+    public static function getWeek( $num=0 ){
+        // 一覧を取得
+        $targetList = self::WEEL_LIST;
+
+        if( isset( $targetList[$num] ) == True ){
+            return $targetList[$num];
+        }
+
+        return $num;
+    }
 }
 
 ?>

@@ -68,8 +68,7 @@
                 <div class="card-header">
                     <h3>最新一覧</h3>
                     
-                    {{-- 検索部分の呼び出し --}}
-                    @include('search_box')
+
                     
                 </div>
 

@@ -7,7 +7,7 @@
                     <td>
                         <?php
                         // 年の配列
-                        $yearList = ["" => "----"] + AnimeConst::getYearList();
+                        $yearList = ["" => "----"] + \AnimeConst::getYearList();
                         ?>
                         {{ Form::select( 'year', $yearList, null, ['class' => 'form-control'] ) }}
                     </td>

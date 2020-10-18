@@ -55,9 +55,14 @@ class MylistController extends Controller
         }
         // リクエストオブジェクトを取得
         $req = SearchRequest::getInstance( $search );
+        $sort = [
+            'onair_weekday_num' => 'asc', // 放送曜日
+            'onair_time' => 'asc', // 放送時間
+        ];
         // お気に入りデータの取得
         $showData = MyAnimeList::whereRequest( $req )
                             ->where( 'user_id', Auth::id() )
+                            ->orderBys( $sort )
                             ->get();
         return view(
             'mylist.list',
@@ -140,6 +145,15 @@ class MylistController extends Controller
         $myAnimeList = MyAnimeList::where( 'anime_id', $anime_id )
                     ->first();
 
+        // 放送チャンネルの取得
+        if( !empty( $myAnimeList->channel ) ){
+            $myAnimeList->channel = \AnimeConst::getChannel( $myAnimeList->channel );
+        }
+        // 放送曜日の取得
+        if( !empty( $myAnimeList->onair_weekday_num ) ){
+            $myAnimeList->onair_weekday_num = \AnimeConst::getWeek( $myAnimeList->onair_weekday_num );
+        }
+        // JSONを返す
         return response()->json( $myAnimeList );
     }
 
