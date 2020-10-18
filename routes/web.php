@@ -28,4 +28,5 @@ Route::get('mylist', 'Anime\MylistController@index'); // 一覧表示用
 Route::get('mylist/create', 'Anime\MylistController@getCreate'); // お気に入り登録用
 Route::get('mylist/cancel', 'Anime\MylistController@getCancel');  // お気に入りキャンセル用
 Route::get('mylist/edit/{id}', 'Anime\MylistController@getEdit'); // お気に入り編集用
+Route::post('mylist/edit/{id}', 'Anime\MylistController@postEdit'); // お気に入り編集用
 Route::get('mylist/mylistData/{id}', 'Anime\MylistController@getMylistData'); // 詳細表示用

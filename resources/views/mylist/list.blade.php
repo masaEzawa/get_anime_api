@@ -4,18 +4,42 @@
 @section('js')
 @parent
 	<script>
-        function modal_open( id, anime_id, title, url ){
-            //
-            $('input[name="anime_id"]').val(anime_id);
-            //
-            $('#anime-title').html( title );
-            //
-            $('#anime-url').html( url );
-            $('#anime-url').attr('href', url);
-            // モーダルの表示
-            $('#modal1').modal('show');
-            // 編集リンクの表示
-            $('#edit-link').attr('href', "{{ url( 'mylist/edit/' ) }}/" + id);
+        function modal_open( id, anime_id ){
+            $.ajax({
+                type: "GET",
+                url: "{{ url( 'mylist/mylistData/' ) }}/" + anime_id,
+                dataType: 'json',
+				// お気に入りに登録されている場合データを取得する
+				success: function( data ) {
+                    console.log(data.title);
+					// アニメIDを表示
+                    $('input[name="anime_id"]').val(anime_id);
+                    // タイトルを表示
+                    $('#anime-title').html( data.title );
+                    // 公式サイトのURLを表示
+                    $('#anime-url').html( data.public_url );
+                    $('#anime-url').attr('href', data.public_url);
+                    // 放送チャンネルを表示
+                    $('#channel').html( data.channel );
+                    // 放送曜日を表示
+                    $('#onair_weekday_num').html( data.onair_weekday_num );
+                    // 評価を表示
+                    $('#onair_time').html( data.onair_time );
+                    // コメントを表示
+                    $('#comment').html( data.comment );
+                    
+                    // 編集リンクの表示
+                    $('#edit-link').attr('href', "{{ url( 'mylist/edit/' ) }}/" + id);
+                    // モーダルの表示
+                    $('#modal1').modal('show');
+                },
+				error: function( data ) {
+
+					// console.log(data.errors);
+					alert('error');
+				}
+            })
+            
         }
 
         function modal_confirm(){
@@ -45,6 +69,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3>お気に入り一覧</h3>
+
+                    {{-- 検索部分の呼び出し --}}
+                    @include('mylist.search_box')
                 </div>
 
                 <div class="card-body">
@@ -59,7 +86,7 @@
                         <ul class="list-inline">
                             @forelse($showData as $key => $value)
                                 <li class="list-inline-item list-content bg-white">
-                                    <a href="javascript:void(0);" onclick="modal_open( '{{ $value['id'] }}', '{{ $value['anime_id'] }}', '{{ $value['title'] }}', '{{ $value['public_url'] }}' );">
+                                    <a href="javascript:void(0);" onclick="modal_open( '{{ $value['id'] }}', '{{ $value['anime_id'] }}' );">
                                         {{ $value['title'] }}
                                     </a>
                                 </li>

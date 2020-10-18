@@ -17,7 +17,7 @@
                         {{-- エラーメッセージ --}}
                         @include('errors.list')
 
-                        {{ Form::model( $showData, ['method' => 'GET', 'url' => url('search')] ) }}
+                        {{ Form::model( $showData, ['method' => 'POST', 'url' => url("mylist/edit/{$showData->id}") ] ) }}
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -34,11 +34,7 @@
                                                         $year = date('Y');
                                                     }
                                                     // 年の配列
-                                                    $yearList = ["" => "----"];
-                                                    // 2014年から現在年まで取得
-                                                    for( $year=date('Y' , strtotime('+1 year') ); $year>=2014; $year-- ){
-                                                        $yearList[$year] = $year;
-                                                    }
+                                                    $yearList = ["" => "----"] + AnimeConst::getYearList();
                                                     ?>
                                                     {{ Form::select( 'year', $yearList, null, ['class' => 'form-control'] ) }}                    
                                                 </td>
@@ -50,13 +46,7 @@
                                                 <td>
                                                     <?php
                                                     // クールのリスト
-                                                    $courList = [
-                                                        "" => "----",
-                                                        '1' => "冬",
-                                                        '2' => "春",
-                                                        '3' => "夏",
-                                                        '4' => "秋",
-                                                    ];
+                                                    $courList = ["" => "----"] + \AnimeConst::COUR_LIST;
                                                     ?>
                                                     {{ Form::select( 'cours_id', $courList, null, ['class' => 'form-control'] ) }}
                                                 </td>
@@ -76,18 +66,9 @@
                                                 <td>
                                                     <?php
                                                     // 放送チャンネルのリスト
-                                                    $channelList = [
-                                                        "" => "----",
-                                                        '9' => "9: TOKYO MX",
-                                                        '3' => "3: チバテレビ",
-                                                        '4' => "4: 日本テレビ",
-                                                        '5' => "5: テレビ朝日",
-                                                        '6' => "6: TBS",
-                                                        '7' => "7: テレビ東京",
-                                                        '8' => "8: フジテレビ",
-                                                    ];
+                                                    $channelList = ["" => "----"] + \AnimeConst::CHANNEL_LIST;
                                                     ?>
-                                                    {{ Form::select( 'channel', $channelList, null, ['class' => 'form-control'] ) }}
+                                                    {{ Form::select( 'channel', \AnimeConst::CHANNEL_LIST, null, ['class' => 'form-control'] ) }}
                                                 </td>
                                             </tr>
 
@@ -97,16 +78,7 @@
                                                 <td>
                                                     <?php
                                                     // 放送曜日のリスト
-                                                    $weekList = [
-                                                        "" => "----",
-                                                        "0" => '日', // 0
-                                                        "1" => '月', // 1
-                                                        "2" => '火', // 2
-                                                        "3" => '水', // 3
-                                                        "4" => '木', // 4
-                                                        "5" => '金', // 5
-                                                        "6" => '土'  // 6
-                                                    ];
+                                                    $weekList = ["" => "----"] + \AnimeConst::WEEL_LIST;
                                                     ?>
                                                     {{ Form::select( 'onair_weekday_num', $weekList, null, ['class' => 'form-control'] ) }}
                                                 </td>

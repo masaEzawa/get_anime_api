@@ -67,52 +67,10 @@
             <div class="card">
                 <div class="card-header">
                     <h3>最新一覧</h3>
-                    <div class="row">
-                        <div class="col-md-12 search-box">
-                        {{ Form::model( $search, ['method' => 'GET', 'url' => url('search')] ) }}
-                            <table class="table">
-                                <tr>
-                                    <th class="color-white list_th">年</th>
-                                    <td>
-                                        <?php
-                                        // 年の配列
-                                        $yearList = ["" => ""];
-                                        // 2014年から現在年まで取得
-                                        for( $year=date('Y'); $year>=2014; $year-- ){
-                                            $yearList[$year] = $year;
-                                        }
-                                        ?>
-                                        {{ Form::select( 'year', $yearList, null, ['class' => 'form-control'] ) }}
-                                    </td>
-
-                                    <th class="color-white list_th">クール</th>
-                                    <td>
-                                        <?php
-                                        // クールのリスト
-                                        $courList = [
-                                            "" => "",
-                                            '1' => "冬",
-                                            '2' => "春",
-                                            '3' => "夏",
-                                            '4' => "秋",
-                                        ];
-                                        ?>
-                                        {{ Form::select( 'cours_id', $courList, null, ['class' => 'form-control'] ) }}
-                                    </td>
-
-                                    <th class="color-white list_th">タイトル</th>
-                                    <td>
-                                        {{ Form::text( 'title', null, ['class' => "form-control"] ) }}
-                                    </td>
-                                </tr>
-                            </table>
-
-                            <div class="col-md-3 offset-5">
-                                <button type="submit" class="login_btn btn btn-block">検索</button>
-                            </div>
-                        {{ Form::close() }}
-                        </div>
-                    </div>
+                    
+                    {{-- 検索部分の呼び出し --}}
+                    @include('search_box')
+                    
                 </div>
 
                 <div class="card-body">

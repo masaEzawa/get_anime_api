@@ -24,26 +24,22 @@ class SearchController extends Controller
 
     // ホーム画面を表示する
     public function index( SearchRequest $req ){
-
         $search = $req->all();
-        
         // 現在年の取得
         $nowYear = date( 'Y' );
-        // 年の指定
-        if( empty( $search['year'] ) ){
+        // 検索されていないとき
+        if( empty( $search ) ){
+            // 年の指定
             $search['year'] = $nowYear;
         }
-
         // リクエストオブジェクトを取得
         $req = SearchRequest::getInstance( $search );
-
         // アニメデータの取得
         $showData = Animes::whereRequest( $req )
                         ->orderby( 'created_at', 'asc' )
                         ->get();
-
         return view(
-            'search',
+            'list',
             compact(
                 'showData',
                 'search'

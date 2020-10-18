@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Anime;
 
 use App\Models\MyAnimeList;
+use App\Http\Requests\SearchRequest;
+use App\Http\Requests\MylistRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Auth;
 
 /**
@@ -26,22 +27,42 @@ class MylistController extends Controller
     /**
      * ホーム画面を表示する
      */
-    public function index(){
-        $columns = [
-            "my_anime_list.id",
-            "anime_id",
-            "my_anime_list.title",
-            "my_anime_list.public_url"
-        ];
+    public function index( SearchRequest $req ){
+        $search = $req->all();
+        // 現在年の取得
+        $nowYear = date( 'Y' );
+        // 検索されていないとき
+        if( empty( $search ) ){
+            // 年の指定
+            $search['year'] = $nowYear;
+  
+            /**
+             * クールの指定
+             */
+            // 現在月が冬の判定
+            if( in_array( date( 'm' ), [1, 2, 3] ) ){
+                $search['cours_id'] = 1;
+            // 現在月が春の判定
+            }else if( in_array( date( 'm' ), [4, 5, 6] ) ){
+                $search['cours_id'] = 2;
+            // 現在月が夏の判定
+            }else if( in_array( date( 'm' ), [7, 8, 9] ) ){
+                $search['cours_id'] = 3;
+            // 現在月が秋の判定
+            }else{
+                $search['cours_id'] = 4;
+            }
+        }
+        // リクエストオブジェクトを取得
+        $req = SearchRequest::getInstance( $search );
         // お気に入りデータの取得
-        $showData = MyAnimeList::joinAnimes()
+        $showData = MyAnimeList::whereRequest( $req )
                             ->where( 'user_id', Auth::id() )
-                            ->select( $columns )
                             ->get();
-
         return view(
             'mylist.list',
             compact(
+                'search',
                 'showData'
             )
         );
@@ -50,7 +71,7 @@ class MylistController extends Controller
     /**
      * お気に入りを追加する
      */
-    public function getCreate( Request $req ){
+    public function getCreate( SearchRequest $req ){
         // DB登録用の配列を定義
         $setData = [];
         // ユーザーIDを取得する
@@ -71,30 +92,43 @@ class MylistController extends Controller
     /**
      * お気に入りを解除する
      */
-    public function getCancel( Request $req ){
+    public function getCancel( SearchRequest $req ){
         // 指定したIDのお気に入りを取得する
         $myAnimeList = MyAnimeList::where( 'anime_id', $req->anime_id )
                     ->firstOrFail();
 
         // データの削除
         $myAnimeList->delete();
-
+        // 一覧へリダイレクト
         return redirect('mylist');
     }
 
     /**
-     * お気に入りを編集する
+     * お気に入りの編集画面を開く
      */
     public function getEdit( $id ){
         // お気に入りデータの取得
         $showData = MyAnimeList::findOrFail( $id );
 
         return view(
-            'mylist.edit',
+            'mylist.input',
             compact(
                 'showData'
             )
         );
+    }
+
+    /**
+     * お気に入りを編集する
+     */
+    public function postEdit( $id, MylistRequest $req ){
+        $setData = $req->all();
+        // お気に入りモデルのオブジェクトを取得
+        $MyAnimeObj = MyAnimeList::findOrFail( $id );
+        // データの更新
+        $MyAnimeObj->update( $setData );
+        // 一覧へリダイレクト
+        return redirect('mylist');
     }
 
     /**

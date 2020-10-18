@@ -38,4 +38,13 @@ class MyAnimeList extends AbstractModel
     public function scopeJoinAnimes( $query ){
         return $query->leftJoin( 'animes', 'my_anime_list.anime_id', '=', 'animes.id' );
     }
+
+    /**
+     * 検索条件のスコープ
+     */
+    public function scopeWhereRequest( $query, $request ){
+        return $query->whereMatch( 'year', $request->year ) // 年
+                    ->whereMatch( 'cours_id', $request->cours_id ) // クールID
+                    ->whereLike( 'title', $request->title ); // タイトル
+    }
 }
