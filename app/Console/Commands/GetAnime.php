@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Animes;
 use Illuminate\Console\Command;
+use DB;
 
 class GetAnime extends Command
 {
@@ -43,7 +44,7 @@ class GetAnime extends Command
         // 年の配列
         $yearList = [];
         // 2014年から現在年まで取得
-        for( $year=2014; $year<=date('Y'); $year++ ){
+        for( $year=2014; $year<=date('Y', strtotime( '+1 year')); $year++ ){
             $yearList[$year] = $year;
         }
         // クールのリスト
@@ -55,52 +56,60 @@ class GetAnime extends Command
         // 除外するカラム
         $exclusionList = ['sex', 'sequel', 'city_code', 'city_name', 'product_companies'];
 
-        // 年のループ
-        foreach ($yearList as $yKey => $year) {
-            // クールのループ
-            foreach ($courList as $cKey => $cour) {
-                // APIのURLを生成
-                $apiUrl = $url . $year . "/" . $cour;
-                // APUを実行し、JSONデータを取得
-                $getJsonData = $this->http_get_contents( $apiUrl );
-                // APIのデータがあるとき
-                if( isset( $getJsonData ) == True ){
-                    // JSONデータを配列に格納
-                    $getDatas = json_decode( $getJsonData, True );
+        // トランザクションの開始
+        DB::beginTransaction();
+        try {
+            // 年のループ
+            foreach ($yearList as $yKey => $year) {
+                // クールのループ
+                foreach ($courList as $cKey => $cour) {
+                    // APIのURLを生成
+                    $apiUrl = $url . $year . "/" . $cour;
+                    // APUを実行し、JSONデータを取得
+                    $getJsonData = $this->http_get_contents( $apiUrl );
+                    // APIのデータがあるとき
+                    if( isset( $getJsonData ) == True ){
+                        // JSONデータを配列に格納
+                        $getDatas = json_decode( $getJsonData, True );
 
-                    // APIデータが配列の時
-                    if( isset( $getDatas ) == True && is_array( $getDatas ) == True ){
-                        foreach ($getDatas as $key => $value) {
-                            // 年のセット
-                            $value['year'] = $year;
-                            // コースIDのセット
-                            $value['cours_id'] = $cour;
-                            // 対象カラムの除外
-                            foreach( $exclusionList as $exclusion ){
-                                unset( $value[$exclusion] );
-                            }
-                            // 日付カラムの成型
-                            foreach( $timestampList as $timestamp ){
-                                $value[$timestamp] = str_replace( "T", " ", $value[$timestamp] );
-                                $value[$timestamp] = str_replace( "Z", "", $value[$timestamp] );
-                            }
+                        // APIデータが配列の時
+                        if( isset( $getDatas ) == True && is_array( $getDatas ) == True ){
+                            foreach ($getDatas as $key => $value) {
+                                // 年のセット
+                                $value['year'] = $year;
+                                // コースIDのセット
+                                $value['cours_id'] = $cour;
+                                // 対象カラムの除外
+                                foreach( $exclusionList as $exclusion ){
+                                    unset( $value[$exclusion] );
+                                }
+                                // 日付カラムの成型
+                                foreach( $timestampList as $timestamp ){
+                                    $value[$timestamp] = str_replace( "T", " ", $value[$timestamp] );
+                                    $value[$timestamp] = str_replace( "Z", "", $value[$timestamp] );
+                                }
 
-                            // データの更新or登録
-                            Animes::updateOrInsert(
-                                ['id' => $value['id']],
-                                $value
-                            );
+                                // データの更新or登録
+                                Animes::updateOrInsert(
+                                    ['id' => $value['id']],
+                                    $value
+                                );
+                            }
+                        }else{
+                            echo "エラー：データの形式が正しくありません。";
+                            exit();
                         }
+                        
                     }else{
-                        echo "エラー：データの形式が正しくありません。";
+                        echo "エラー：データが取得できませんでした。";
                         exit();
                     }
-                    
-                }else{
-                    echo "エラー：データが取得できませんでした。";
-                    exit();
                 }
             }
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
         }
 
     }
