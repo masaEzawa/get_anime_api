@@ -12,7 +12,7 @@ class GetAnime extends Command
      *
      * @var string
      */
-    protected $signature = 'getanime';
+    protected $signature = 'command:getanime';
 
     /**
      * The console command description.
@@ -110,8 +110,10 @@ class GetAnime extends Command
         $ch = \curl_init();
 		// オプション
 		\curl_setopt($ch, CURLOPT_TIMEOUT, 1000);
-		\curl_setopt($ch, CURLOPT_URL, $url);
-		\curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+        \curl_setopt($ch, CURLOPT_URL, $url);
+        if (isset($_SERVER['HTTP_USER_AGENT'])) {
+            \curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+        }
 		if (isset($_SERVER['HTTP_REFERER'])) {
 		\curl_setopt($ch, CURLOPT_REFERER, $_SERVER['HTTP_REFERER']);
 		}
