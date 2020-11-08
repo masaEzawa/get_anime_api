@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+{{-- JSの定義 --}}
+@section('js')
+@parent
+<script src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('js/tinymce/tinymce_setting.js') }}"></script>
+<script>
+
+</script>
+@stop
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -88,6 +98,13 @@
                                             <tr>
                                                 <th class="input-box-th">放送時間 <span class="required">※</span></th>
                                                 <td>
+                                                    <?php
+                                                    // 値が空でないとき
+                                                    if( !empty( $showData->onair_time ) ){
+                                                        // 表示日付のフォーマットを整える
+                                                        $showData->onair_time = date( "H:i", strtotime( $showData->onair_time ) );
+                                                    }
+                                                    ?>
                                                     {!! Form::text( 'onair_time', null, ['class' => 'form-control', 'placeholder' => '00:00'] ) !!}
                                                 </td>
                                             </tr>
@@ -104,7 +121,9 @@
                                             <tr>
                                                 <th class="input-box-th">評価</th>
                                                 <td>
-                                                   5段階評価
+                                                    <div class="range-group">
+                                                        {{ Form::input( 'number', 'star_review', null, ['min' => "1", 'max' => "5", 'class' => "input-range"] ) }}
+                                                    </div>
                                                 </td>
                                             </tr>
 
@@ -112,7 +131,7 @@
                                             <tr>
                                                 <th class="input-box-th">コメント</th>
                                                 <td>
-                                                    {!! Form::textarea( 'memo', null, ['class' => 'form-control'] ) !!}
+                                                    {!! Form::textarea( 'comment', null, ['class' => 'form-control', 'id' => 'tinymce'] ) !!}
                                                 </td>
                                             </tr>
 

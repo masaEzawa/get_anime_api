@@ -135,3 +135,25 @@ margin-left: 4px;
 .required{
   color: #c91d4b;
 }
+
+.input-range {
+  display: none;
+}
+.range-group {
+  position: relative;
+}
+.range-group > a {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.range-group > a:before {
+  content: "☆";
+  font-family: "Ionicons";
+  font-size: 20px;
+  color: #aaa;
+}
+.range-group > a.on:before {
+  content: "★";
+  color: #fc3;
+}
