@@ -11,7 +11,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>アカウント登録</h3>
+                    <h3>アカウント詳細</h3>
                 </div>
 
                 <div class="card-body">

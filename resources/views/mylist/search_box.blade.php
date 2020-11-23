@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12 search-box">
+    <div class="col-xs-12 col-md-12 search-box">
         {{ Form::model( $search, ['method' => 'GET', 'url' => url('mylist')] ) }}
             <table class="table">
                 <tr>

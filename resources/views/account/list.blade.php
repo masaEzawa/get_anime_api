@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>アカウント詳細</h3>
+                    <h3>アカウント一覧</h3>
                     
                     <div class="row">
                         <div class="col-md-12">
