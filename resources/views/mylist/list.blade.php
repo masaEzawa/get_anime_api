@@ -84,7 +84,7 @@
                     {{-- データが存在するとき --}}
                     @if( !empty( $showData ) )
                         <ul class="list-inline">
-                            @forelse($showData as $key => $value)
+                            @foreach($showData as $key => $value)
                                 
                                 <li class="list-inline-item list-content bg-white">
                                     {{-- 詳細リンク --}}

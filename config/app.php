@@ -241,6 +241,7 @@ return [
         ## 定数系
         ########################
         'AnimeConst' => App\Consts\AnimeConst::class,
+        'UserConst' => App\Consts\UserConst::class,
     ],
 
 ];

@@ -30,3 +30,14 @@ Route::get('mylist/cancel', 'Anime\MylistController@getCancel');  // お気に�
 Route::get('mylist/edit/{id}', 'Anime\MylistController@getEdit'); // お気に入り編集用
 Route::post('mylist/edit/{id}', 'Anime\MylistController@postEdit'); // お気に入り編集用
 Route::get('mylist/mylistData/{id}', 'Anime\MylistController@getMylistData'); // 詳細表示用
+
+// アカウント
+Route::get('account', 'Account\AccountController@index'); // 一覧表示用
+Route::get('account/create', 'Account\AccountController@getCreate'); // アカウント登録用
+Route::post('account/create', 'Account\AccountController@postCreate'); // アカウント登録用
+Route::get('account/detail/{id}', 'Account\AccountController@getDetail'); // アカウント編集用
+Route::post('account/detail/{id}', 'Account\AccountController@postDetail'); // アカウント編集用
+Route::get('account/edit/{id}', 'Account\AccountController@getEdit'); // アカウント編集用
+Route::post('account/edit/{id}', 'Account\AccountController@postEdit'); // アカウント編集用
+Route::get('account/delete/{id}', 'Account\AccountController@getDelete'); // アカウント編集用
+Route::post('account/delete/{id}', 'Account\AccountController@postDelete'); // アカウント編集用

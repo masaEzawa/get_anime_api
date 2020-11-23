@@ -83,7 +83,7 @@
                     {{-- データが存在するとき --}}
                     @if( !empty( $showData ) )
                         <ul class="list-inline">
-                            @forelse($showData as $key => $value)
+                            @foreach($showData as $key => $value)
                                 <li class="list-inline-item list-content bg-white">
                                     <a href="javascript:void(0);" onclick="modal_open( {id:'{{ $value['id'] }}', title:'{{ $value['title'] }}', url:'{{ $value['public_url'] }}', year:'{{ $value['year'] }}', cours_id:'{{ $value['cours_id'] }}' });">
                                         {{ $value['title'] }}
