@@ -113,7 +113,7 @@
                                             <tr>
                                                 <th class="input-box-th">放送開始日 <span class="required">※</span></th>
                                                 <td>
-                                                    {!! Form::text( 'onair_start_date', null, ['class' => 'form-control', 'placeholder' => '2020-10-10'] ) !!}
+                                                    {!! Form::text( 'onair_start_date', null, ['class' => 'form-control datepicker', 'placeholder' => '2020-10-10'] ) !!}
                                                 </td>
                                             </tr>
 

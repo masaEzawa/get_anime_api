@@ -1,9 +1,15 @@
 function elFinderBrowser (field_name, url, type, win) {
   // パス名取得
   var hostUrl = location.protocol + '//' + location.hostname;
-  console.log(hostUrl);
+  var uploder_path = '';
+  // localhostの時
+  if ( hostUrl.indexOf( 'localhost' ) != -1 ) {
+    uploder_path = hostUrl + '/laravel/get_anime_api/public/fileUploader/fileUploader.php';
+  }else{
+    uploder_path = hostUrl + '/get_anime_api/fileUploader/fileUploader.php';
+  }
   tinymce.activeEditor.windowManager.open({
-      file: hostUrl + '/laravel/get_anime_api/public/fileUploader/fileUploader.php', // elFinderを配置した場所を指定して下さい(絶対パス)
+      file: uploder_path, // elFinderを配置した場所を指定して下さい(絶対パス)
       title: 'ファイルのアップロード・選択',
       width: 900,  
       height: 450,
@@ -76,8 +82,8 @@ tinymce.init({
   
     mobile: {
 	    theme: 'mobile',
-	    plugins: [ 'autosave', 'lists', 'autolink', 'textcolor' ],
-      toolbar: [ 'bold', 'italic', 'styleselect', 'forecolor', 'backcolor' ]
+	    plugins: [ 'autosave', 'lists', 'autolink', 'textcolor', 'image', 'link' ],
+      toolbar: [ 'bold', 'italic', 'styleselect', 'forecolor', 'backcolor' , 'image', 'link' , 'unlink' ]
 	  },
     menubar  : false,
     relative_urls : false,

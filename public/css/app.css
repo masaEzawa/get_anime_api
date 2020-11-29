@@ -165,3 +165,5 @@ margin-left: 4px;
   content: "★";
   color: #fc3;
 }
+
+.ui-datepicker { z-index: 1000 !important; }

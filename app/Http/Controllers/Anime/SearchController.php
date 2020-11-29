@@ -39,7 +39,7 @@ class SearchController extends Controller
                         ->orderby( 'created_at', 'asc' )
                         ->get();
         return view(
-            'list',
+            'search.list',
             compact(
                 'showData',
                 'search'

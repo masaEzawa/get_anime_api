@@ -1,4 +1,11 @@
 $(function() {
+    // 日付のカレンダー入力UIの設定
+    $( '.datepicker' ).datepicker({
+        dateFormat:'yy-mm-dd', // 日付のフォーマット
+        autoclose: true, // 入力後自動で閉じる。
+        language: 'ja' // 日本語
+    });
+    
     // 星評価のデフォルト表示を生成（☆）
     $('.range-group').each(function() {
         // 5回繰り返す

@@ -68,8 +68,14 @@
                 <div class="card-header">
                     <h3>最新一覧</h3>
                     
-                    {{-- 検索部分の呼び出し --}}
-                    @include('search_box')
+                    {{-- スマートフォンで開かれたとき --}}
+                    @if( UserConst::isSmartphone() == True )
+                        {{-- 検索部分の呼び出し --}}
+                        @include('search.search_box_sp')
+                    @else
+                        {{-- 検索部分の呼び出し --}}
+                        @include('search.search_box')
+                    @endif
                     
                 </div>
 

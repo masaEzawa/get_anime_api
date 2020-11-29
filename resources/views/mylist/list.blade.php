@@ -70,8 +70,14 @@
                 <div class="card-header">
                     <h3>お気に入り一覧</h3>
 
-                    {{-- 検索部分の呼び出し --}}
-                    @include('mylist.search_box')
+                    {{-- スマートフォンで開かれたとき --}}
+                    @if( UserConst::isSmartphone() == True )
+                        {{-- 検索部分の呼び出し --}}
+                        @include('mylist.search_box_sp')
+                    @else
+                        {{-- 検索部分の呼び出し --}}
+                        @include('mylist.search_box')
+                    @endif
                 </div>
 
                 <div class="card-body">

@@ -25,6 +25,23 @@ class UserConst {
 
         return $num;
     }
+
+    ######################
+    ## ユーザーエージェントの
+    ## デバイス判定
+    ######################
+
+    /**
+     * スマートフォンで開かれたかどうか判定
+     */
+    public static function isSmartphone(){
+        // ユーザーエージェントがスマートフォンのとき
+        if( preg_match( "/iPhone|iPod|Android.*Mobile|Windows.*Phone/", $_SERVER['HTTP_USER_AGENT'] ) == True ){
+            return True;
+        }else{
+            return False;
+        }
+    }
 }
 
 ?>
